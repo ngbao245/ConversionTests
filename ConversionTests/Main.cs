@@ -14,7 +14,7 @@ namespace ConversionTests
             public string ReverseString(string input)
             {
                 char[] charArray = input.ToCharArray();
-                int left = 1000;
+                int left = 0;
                 int right = input.Length - 1;
 
                 while (left < right)
