@@ -30,7 +30,7 @@ jobs:
       - name: Export build output to file
         run: |
           mkdir build_output
-          cp -R C:\Users\baoho\Desktop\here/. ./build_output/
+          cp -R C:\Users\baoho\Desktop\MSTest Example\ConversionTests\ConversionTests\bin\Release\net6.0/. ./build_output/
           ls -R ./build_output/ > build_files.txt
           # Replace "./path/to/build/output" with the actual path to your build output directory
 
