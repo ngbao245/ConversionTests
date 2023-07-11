@@ -30,7 +30,7 @@ jobs:
       - name: Export build output to file
         run: |
           mkdir build_output
-          cp -R .\bin\Debug\net6.0/. ./build_output/
+          cp -R ./bin/Debug/net6.0/. ./build_output/
           ls -R ./build_output/ > build_files.txt
           # Replace "./path/to/build/output" with the actual path to your build output directory
 
