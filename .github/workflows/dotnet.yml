@@ -1,41 +1,42 @@
-name: Build and Export Workflow
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  build-and-export:
+  build:
+
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 6.0.x # Specify the desired .NET Core version
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
 
-      - name: Restore dependencies
-        run: dotnet restore
+    - name: Restore dependencies
+      run: dotnet restore
 
-      - name: Run tests
-        run: dotnet test --no-restore --verbosity normal
+    - name: Run tests
+      run: dotnet test --no-restore --verbosity normal
 
-      - name: Build project
-        run: dotnet build --no-restore --configuration Release
+    - name: Build project
+      run: dotnet build --no-restore --configuration Release
 
-      - name: Export build output to file
-        run: |
-          mkdir build_output
-          cp -R ./bin/Debug/net6.0/. ./build_output/
-          ls -R ./build_output/ > build_files.txt
-          # Replace "./path/to/build/output" with the actual path to your build output directory
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: build-artifacts
-          path: build_output
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Build artifacts"
+        git push origin main
+      
