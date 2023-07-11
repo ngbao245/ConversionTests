@@ -38,3 +38,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
+        tags: rstropek/htl-leo-csharp-4-slides:latest        
