@@ -10,8 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clean
-        run: dotnet clean
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
 
       - name: Restore NuGet packages
         run: dotnet restore
@@ -19,10 +24,7 @@ jobs:
       - name: Run Tests
         run: dotnet test
 
-      - name: Build
-        run: dotnet build
-
-      - name: Publish
+      - name: Build and Publish
         run: dotnet publish -c Release -o ./publish
 
       - name: Docker Build and Push
@@ -30,4 +32,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: your-docker-registry/your-image-name:latest
+          tags: your-docker-registry/your
